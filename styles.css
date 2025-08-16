@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f9f9f9;
+    color: #222;
+}
+header {
+    background: #005fa3;
+    color: #fff;
+    padding: 1rem;
+}
+nav a {
+    color: #fff;
+    margin-right: 1rem;
+    text-decoration: none;
+}
+main {
+    padding: 2rem;
+    background: #fff;
+    margin: 1rem auto;
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+footer {
+    text-align: center;
+    padding: 1rem;
+    background: #eee;
+    color: #555;
+}
+.adsense-placeholder {
+    margin: 2rem 0;
+    min-height: 90px;
+    background: #e0e0e0;
+    text-align: center;
+    color: #888;
+    font-size: 1rem;
+}
+ul li img {
+    display: block;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}

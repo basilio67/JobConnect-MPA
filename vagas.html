@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vagas de emprego publicadas por administradores.">
+    <title>Vagas de Emprego - JobConnect MPA</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">Início</a>
+        <a href="admin.html">Publicar Vaga</a>
+    </nav>
+    <main>
+        <h2>Vagas de Emprego</h2>
+        <ul id="lista-vagas"></ul>
+        <script>
+            async function carregarVagas() {
+                const resp = await fetch('https://jobconnect-mpa.onrender.com/vagas');
+                const vagas = await resp.json();
+                const ul = document.getElementById('lista-vagas');
+                ul.innerHTML = vagas.map(vaga => `
+                    <li>
+                        <img src="${vaga.imagem}" alt="Imagem da vaga ${vaga.titulo}" style="max-width:150px;max-height:150px;">
+                        <h3>${vaga.titulo}</h3>
+                        <p>Empresa: ${vaga.empresa}</p>
+                        <p>Local: ${vaga.local}</p>
+                        <p>Descrição: ${vaga.descricao}</p>
+                    </li>
+                `).join('');
+            }
+            carregarVagas();
+        </script>
+        <div class="adsense-placeholder"></div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Publicar Vaga</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        async function publicarVaga() {
+            const titulo = document.getElementById('titulo').value;
+            const empresa = document.getElementById('empresa').value;
+            const local = document.getElementById('local').value;
+            const descricao = document.getElementById('descricao').value;
+            const imagem = document.getElementById('imagem').value;
+            const vaga = { titulo, empresa, local, descricao, imagem };
+            const resp = await fetch('https://jobconnect-mpa.onrender.com/vagas', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(vaga)
+            });
+            if (resp.ok) {
+                alert('Vaga publicada com sucesso!');
+                document.querySelector('form').reset();
+            } else {
+                alert('Erro ao publicar vaga.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Início</a>
+        <a href="vagas.html">Vagas</a>
+    </nav>
+    <main>
+        <h2>Publicar Nova Vaga</h2>
+        <form onsubmit="event.preventDefault(); publicarVaga();">
+            <label for="titulo">Título da Vaga:</label>
+            <input type="text" id="titulo" required>
+            <label for="empresa">Empresa:</label>
+            <input type="text" id="empresa" required>
+            <label for="local">Local:</label>
+            <input type="text" id="local" required>
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" required></textarea>
+            <label for="imagem">URL da Imagem:</label>
+            <input type="url" id="imagem" required>
+            <button type="submit">Publicar Vaga</button>
+        </form>
+    </main>
+</body>
+</html>
