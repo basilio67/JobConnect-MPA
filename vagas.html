@@ -17,7 +17,7 @@
         <ul id="lista-vagas"></ul>
         <script>
             async function carregarVagas() {
-                const resp = await fetch('https://jobconnect-mpa.onrender.com/vagas');
+                const resp = await fetch('https://jobconnect-mpa-backend.onrender.com/vagas');
                 const vagas = await resp.json();
                 const ul = document.getElementById('lista-vagas');
                 ul.innerHTML = vagas.map(vaga => `
