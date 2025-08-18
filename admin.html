@@ -12,7 +12,8 @@
             const local = document.getElementById('local').value;
             const descricao = document.getElementById('descricao').value;
             const imagem = document.getElementById('imagem').value;
-            const vaga = { titulo, empresa, local, descricao, imagem };
+            const email = document.getElementById('email').value;
+            const vaga = { titulo, empresa, local, descricao, imagem, email };
             const resp = await fetch('https://jobconnect-mpa-backend.onrender.com/vagas', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -45,6 +46,8 @@
             <textarea id="descricao" required></textarea>
             <label for="imagem">URL da Imagem:</label>
             <input type="url" id="imagem" required>
+            <label for="email">E-mail do Empregador:</label>
+            <input type="email" id="email" required>
             <button type="submit">Publicar Vaga</button>
         </form>
     </main>

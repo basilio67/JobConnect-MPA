@@ -27,6 +27,9 @@
                         <p>Empresa: ${vaga.empresa}</p>
                         <p>Local: ${vaga.local}</p>
                         <p>Descrição: ${vaga.descricao}</p>
+                        <button onclick="window.location.href='mailto:${vaga.email}?subject=Candidatura para ${encodeURIComponent(vaga.titulo)}'">
+                            Submeter Candidatura
+                        </button>
                     </li>
                 `).join('');
             }
