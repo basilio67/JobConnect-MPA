@@ -10,6 +10,12 @@ header {
     color: #fff;
     padding: 1rem;
 }
+header img {
+    max-width: 120px;
+    height: auto;
+    display: block;
+    margin: 0 auto 0.5rem auto;
+}
 nav a {
     color: #fff;
     margin-right: 1rem;
