@@ -13,7 +13,7 @@
             const descricao = document.getElementById('descricao').value;
             const imagem = document.getElementById('imagem').value;
             const vaga = { titulo, empresa, local, descricao, imagem };
-            const resp = await fetch('https://jobconnect-mpa.onrender.com/vagas', {
+            const resp = await fetch('https://jobconnect-mpa-backend.onrender.com/vagas', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(vaga)
