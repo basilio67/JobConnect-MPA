@@ -87,16 +87,18 @@
             <a href="sobre.html">Sobre</a>
         </nav>
         <script>
-            const btn = document.getElementById('submenuBtn');
-            const submenu = document.getElementById('submenuArtigos');
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
-            });
-            document.addEventListener('click', function(e) {
-                if (!btn.contains(e.target) && !submenu.contains(e.target)) {
-                    submenu.style.display = 'none';
-                }
+            document.addEventListener('DOMContentLoaded', function() {
+                const btn = document.getElementById('submenuBtn');
+                const submenu = document.getElementById('submenuArtigos');
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+                });
+                document.addEventListener('click', function(e) {
+                    if (!btn.contains(e.target) && !submenu.contains(e.target)) {
+                        submenu.style.display = 'none';
+                    }
+                });
             });
         </script>
     </header>
