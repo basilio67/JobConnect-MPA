@@ -121,13 +121,18 @@
 <body>
     <nav>
         <a href="index.html">Início</a>
+        <a href="artigos.html">Artigos</a>
     </nav>
     <main>
         <h2>Vagas de Emprego</h2>
         <ul id="lista-vagas"></ul>
         <script>
+            const BACKEND_URL = location.hostname === 'localhost'
+                ? 'http://localhost:3001/vagas'
+                : 'https://jobconnect-mpa-backend.onrender.com/vagas';
+
             async function carregarVagas() {
-                const resp = await fetch('https://jobconnect-mpa-backend.onrender.com/vagas');
+                const resp = await fetch(BACKEND_URL);
                 const vagas = await resp.json();
                 const ul = document.getElementById('lista-vagas');
                 ul.innerHTML = vagas.map(vaga => `

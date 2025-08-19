@@ -6,6 +6,10 @@
     <title>Admin - Publicar Vaga</title>
     <link rel="stylesheet" href="styles.css">
     <script>
+        const BACKEND_URL = location.hostname === 'localhost'
+            ? 'http://localhost:3001/vagas'
+            : 'https://jobconnect-mpa-backend.onrender.com/vagas';
+
         async function publicarVaga() {
             const titulo = document.getElementById('titulo').value;
             const empresa = document.getElementById('empresa').value;
@@ -14,7 +18,7 @@
             const imagem = document.getElementById('imagem').value;
             const email = document.getElementById('email').value;
             const vaga = { titulo, empresa, local, descricao, imagem, email };
-            const resp = await fetch('https://jobconnect-mpa-backend.onrender.com/vagas', {
+            const resp = await fetch(BACKEND_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(vaga)
