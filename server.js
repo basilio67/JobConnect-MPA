@@ -7,13 +7,22 @@ const PORT = 3001;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));
 
 // Listar vagas
 app.get('/vagas', (req, res) => {
     db.all('SELECT * FROM jobs', [], (err, rows) => {
         if (err) return res.status(500).send('Erro ao buscar vagas');
-        res.json(rows);
+        // Mapeia os campos para o padrão do frontend
+        const vagas = rows.map(vaga => ({
+            id: vaga.id,
+            titulo: vaga.title,
+            empresa: vaga.empresa,
+            local: vaga.local,
+            descricao: vaga.description,
+            imagem: vaga.imagem,
+            email: vaga.email
+        }));
+        res.json(vagas);
     });
 });
 
