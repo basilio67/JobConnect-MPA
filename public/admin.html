@@ -10,14 +10,39 @@
             ? 'http://localhost:3001/vagas'
             : 'https://jobconnect-mpa-backend.onrender.com/vagas';
 
+        // Use seu cloud_name e upload_preset
+        const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dcfecigyx/image/upload';
+        const CLOUDINARY_PRESET = 'jobconnect_upload'; // crie este preset no painel Cloudinary
+
+        async function uploadImagem(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', CLOUDINARY_PRESET);
+            const resp = await fetch(CLOUDINARY_URL, {
+                method: 'POST',
+                body: formData
+            });
+            const data = await resp.json();
+            return data.secure_url;
+        }
+
         async function publicarVaga() {
             const titulo = document.getElementById('titulo').value;
             const empresa = document.getElementById('empresa').value;
             const local = document.getElementById('local').value;
             const descricao = document.getElementById('descricao').value;
-            const imagem = document.getElementById('imagem').value;
             const email = document.getElementById('email').value;
-            const vaga = { titulo, empresa, local, descricao, imagem, email };
+            const imagemInput = document.getElementById('imagem');
+            let imagemUrl = '';
+
+            if (imagemInput.files.length > 0) {
+                imagemUrl = await uploadImagem(imagemInput.files[0]);
+            } else {
+                alert('Selecione uma imagem.');
+                return;
+            }
+
+            const vaga = { titulo, empresa, local, descricao, imagem: imagemUrl, email };
             const resp = await fetch(BACKEND_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -48,8 +73,8 @@
             <input type="text" id="local" required>
             <label for="descricao">Descrição:</label>
             <textarea id="descricao" required></textarea>
-            <label for="imagem">URL da Imagem:</label>
-            <input type="url" id="imagem" required>
+            <label for="imagem">Imagem da Vaga:</label>
+            <input type="file" id="imagem" accept="image/*" required>
             <label for="email">E-mail do Empregador:</label>
             <input type="email" id="email" required>
             <button type="submit">Publicar Vaga</button>

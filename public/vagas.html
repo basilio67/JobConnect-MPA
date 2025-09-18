@@ -43,6 +43,14 @@
             margin-bottom: 2rem;
             font-size: 1.5rem;
         }
+        #busca-vagas {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e3e8ee;
+        }
         ul#lista-vagas {
             list-style: none;
             padding: 0;
@@ -125,19 +133,27 @@
     </nav>
     <main>
         <h2>Vagas de Emprego</h2>
+        <input
+            type="text"
+            id="busca-vagas"
+            placeholder="Buscar por título, empresa ou local..."
+            style="width:100%;padding:0.7rem 1rem;margin-bottom:1.5rem;font-size:1rem;border-radius:8px;border:1px solid #e3e8ee;"
+        >
         <ul id="lista-vagas"></ul>
         <script>
             const BACKEND_URL = location.hostname === 'localhost'
                 ? 'http://localhost:3001/vagas'
                 : 'https://jobconnect-mpa-backend.onrender.com/vagas';
 
-            async function carregarVagas() {
-                const resp = await fetch(BACKEND_URL);
-                const vagas = await resp.json();
+            let todasVagas = [];
+
+            function renderizarVagas(vagas) {
                 const ul = document.getElementById('lista-vagas');
                 ul.innerHTML = vagas.map(vaga => `
                     <li>
-                        <img src="${vaga.imagem}" alt="Imagem da vaga ${vaga.titulo}" style="max-width:150px;max-height:150px;">
+                        <img src="${vaga.imagem}" alt="Imagem da vaga ${vaga.titulo}" 
+                             style="max-width:150px;max-height:150px;"
+                             onerror="this.onerror=null;this.src='images/placeholder.png';">
                         <h3>${vaga.titulo}</h3>
                         <p>Empresa: ${vaga.empresa}</p>
                         <p>Local: ${vaga.local}</p>
@@ -148,6 +164,23 @@
                     </li>
                 `).join('');
             }
+
+            async function carregarVagas() {
+                const resp = await fetch(BACKEND_URL);
+                todasVagas = await resp.json();
+                renderizarVagas(todasVagas);
+            }
+
+            document.getElementById('busca-vagas').addEventListener('input', function(e) {
+                const termo = e.target.value.trim().toLowerCase();
+                const filtradas = todasVagas.filter(vaga =>
+                    vaga.titulo.toLowerCase().includes(termo) ||
+                    vaga.empresa.toLowerCase().includes(termo) ||
+                    vaga.local.toLowerCase().includes(termo)
+                );
+                renderizarVagas(filtradas);
+            });
+
             carregarVagas();
         </script>
         <div class="adsense-placeholder"></div>
