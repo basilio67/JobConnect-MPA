@@ -73,3 +73,11 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
+app.use(cors({
+    origin:"https://jobconnect-mpa.onrender.com"
+}));
+
+app.get("/", (req, res) =>{
+    res.send("CORS funcionando");
+});
+
